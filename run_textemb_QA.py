@@ -235,6 +235,9 @@ def main():
     if os.path.exists(args.output_dir) and os.listdir(args.output_dir) and not args.overwrite_output_dir:
         raise ValueError("Output directory ({}) already exists and is not empty. Use --overwrite_output_dir to overcome.".format(args.output_dir))
 
+    # Create output directory if needed
+    if not os.path.exists(args.output_dir):
+        os.makedirs(args.output_dir)
     with open(os.path.join(args.output_dir, 'run_args.txt'), 'w') as f:
         f.write(json.dumps(args.__dict__, indent=2))
         f.close()
@@ -272,9 +275,6 @@ def main():
     train_dataset = load_and_cache_examples(args, tokenizer, evaluate=False, output_examples=False)
     if args.train_data_subset > 0:
         train_dataset = Subset(train_dataset, list(range(min(args.train_data_subset, len(train_dataset)))))
-    # Create output directory if needed
-    if not os.path.exists(args.output_dir):
-        os.makedirs(args.output_dir)
     compute_textemb(args, train_dataset, model)
 
     

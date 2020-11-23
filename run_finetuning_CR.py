@@ -435,6 +435,9 @@ def main():
             "Output directory ({}) already exists and is not empty. Use --overwrite_output_dir to overcome.".format(
                 args.output_dir))
 
+    # Create output directory if needed
+    if not os.path.exists(args.output_dir):
+        os.makedirs(args.output_dir)
     with open(os.path.join(args.output_dir, 'run_args.txt'), 'w') as f:
         f.write(json.dumps(args.__dict__, indent=2))
         f.close()
@@ -531,13 +534,9 @@ def main():
     model.to(args.device)
 
     logger.info("Training/evaluation parameters %s", args)
-    if args.do_train and (args.local_rank == -1 or torch.distributed.get_rank() == 0): 
-        # Create output directory if needed
-        if not os.path.exists(args.output_dir) and args.local_rank in [-1, 0]:
-            os.makedirs(args.output_dir)
-        # Good practice: save your training arguments together with the trained model
-        torch.save(args, os.path.join(args.output_dir, 'training_args.bin'))
-        tokenizer.save_pretrained(args.output_dir)
+    # Good practice: save your training arguments together with the trained model
+    torch.save(args, os.path.join(args.output_dir, 'training_args.bin'))
+    tokenizer.save_pretrained(args.output_dir)
 
     # Training
     if args.do_train:
