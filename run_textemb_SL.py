@@ -192,7 +192,7 @@ def main():
     args = parser.parse_args()
 
     if os.path.exists(args.output_dir) and os.listdir(
-            args.output_dir) and args.do_train and not args.overwrite_output_dir:
+            args.output_dir) and not args.overwrite_output_dir:
         raise ValueError(
             "Output directory ({}) already exists and is not empty. Use --overwrite_output_dir to overcome.".format(
                 args.output_dir))
@@ -241,6 +241,9 @@ def main():
     train_dataset = load_and_cache_examples(args, tokenizer, labels, pad_token_label_id, mode="train")
     if args.train_data_subset > 0:
         train_dataset = Subset(train_dataset, list(range(min(args.train_data_subset, len(train_dataset)))))
+    # Create output directory if needed
+    if not os.path.exists(args.output_dir):
+        os.makedirs(args.output_dir)
     run_feature_extractor(args, train_dataset, model)
 
     

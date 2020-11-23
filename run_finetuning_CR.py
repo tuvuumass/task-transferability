@@ -531,9 +531,13 @@ def main():
     model.to(args.device)
 
     logger.info("Training/evaluation parameters %s", args)
-    # Good practice: save your training arguments together with the trained model
-    torch.save(args, os.path.join(args.output_dir, 'training_args.bin'))
-    tokenizer.save_pretrained(args.output_dir)
+    if args.do_train and (args.local_rank == -1 or torch.distributed.get_rank() == 0): 
+        # Create output directory if needed
+        if not os.path.exists(args.output_dir) and args.local_rank in [-1, 0]:
+            os.makedirs(args.output_dir)
+        # Good practice: save your training arguments together with the trained model
+        torch.save(args, os.path.join(args.output_dir, 'training_args.bin'))
+        tokenizer.save_pretrained(args.output_dir)
 
     # Training
     if args.do_train:
