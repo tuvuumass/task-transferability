@@ -33,7 +33,7 @@ Figure 1: A demonstration of our task embedding pipeline. Given a target task, w
    * [Using task embeddings for source task selection](#using-task-embeddings-for-source-task-selection)     
 
 ## Installation
-This repository is developed on Python 3.7.5, PyTorch 1.3.1 and the [Hugging Face's Transformers](https://github.com/huggingface/transformers) 2.1.1.
+This repository is developed on Python 3.7.5, PyTorch 1.4.0 and the [Hugging Face's Transformers](https://github.com/huggingface/transformers) 2.1.1.
 
 You should install all necessary Python packages in a [virtual environment](https://docs.python.org/3/library/venv.html). If you are unfamiliar with Python virtual environments, please check out the user guide [here](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/).
 
