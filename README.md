@@ -492,10 +492,10 @@ python ./run_taskemb_CR.py \
 ```
 
 ## Pretrained models and precomputed task embeddings
-Coming soon...
+
 
 ## Using task embeddings for source task selection
-Coming soon...
+This [notebook](https://colab.research.google.com/drive/1eGsMwGx3Yi9-CY_WNwsjilwlPWHBRUBj?usp=sharing) demonstrates using the `TextEmb` task embedding for source task selection.
 
 ## Citation
 If you find this repository useful, please cite our paper:
